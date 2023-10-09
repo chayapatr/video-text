@@ -6,6 +6,8 @@
 	let canvasIn: HTMLCanvasElement
 	let canvasOut: HTMLCanvasElement
 
+	let bgopa = 0.1
+
 	let process = () => {}
     let arr = []
     let transform = []
@@ -89,20 +91,23 @@
 	   // return Math.round(l)
 	   // return [".", "-", "+", "&", "#"].reverse()[Math.floor((l * 5) / 255)]
 	   // return ["A", "B", "W", "E", "X"].reverse()[Math.floor((l * 5) / 255)]
-	   const chars = "@K☻ฌGQ︎#3⌘MกA⌫&%g!เ®︎+*~.".split("") // "ABCDEFGHIJKLMONOPQRSTUVWXYZ".split("")
+	   const chars = " K@☻ฌGQ︎#3⌘MกA⌫&%i!เ®︎+*~.".split("") // "ABCDEFGHIJKLMONOPQRSTUVWXYZ".split("")
 	   // const emoji = ["@", "K", "🥺", "ฌ", "G", "Q", "🪐", "#", "3", "M", "ก", "🤘", "A", "&", "%", "g", "!", "เ", "+", "🧋", "*", "~", "."]
 	   return chars[Math.floor((l * chars.length) / 255)]
 	}
 </script>
 
 <div class="flex-col gap-4">
+    <!-- <div class="fixed bottom-0 left-0 p-4">
+        <input type="range" min="0" max="1" step="0.1" bind:value={bgopa} />
+    </div> -->
 	<video
 		playsinline
 		id="video"
 		bind:this={vid}
-        width={parseInt(width / 1.5)}
-        height={parseInt(height / 1.5)}
-        class="fixed top-0 left-0 p-4"
+        width={parseInt(width / 1.2)}
+        height={parseInt(height / 1.2)}
+        class="fixed top-0 left-0 p-4 z-10"
 	>
 		Video stream not available.
 		<track kind="captions" />
@@ -131,12 +136,12 @@
 				<div
 				    class="aspect-square flex justify-center w-10 items-center overflow-hidden"
 					style={`
-					  background-color: rgba(${transform[(i*x)+j]},${transform[(i*x)+j+1]},${transform[(i*x)+j+2]},0.5);
-					  border: 1px solid rgba(${transform[(i*x)+j]},${transform[(i*x)+j+1]},${transform[(i*x)+j+2]},0.8);
+					  background-color: rgba(${transform[(i*x)+j]},${transform[(i*x)+j+1]},${transform[(i*x)+j+2]},0);
+					  border: 2px solid rgba(${transform[(i*x)+j]},${transform[(i*x)+j+1]},${transform[(i*x)+j+2]},);
 					  color: rgb(${transform[(i*x)+j]} ${transform[(i*x)+j+1]} ${transform[(i*x)+j+2]});
-					  font-size: ${getL(transform[(i*x)+j], transform[(i*x)+j+1], transform[(i*x)+j+2]) > 100 ? "1" : "2"}em;
+					  font-size: ${getL(transform[(i*x)+j], transform[(i*x)+j+1], transform[(i*x)+j+2]) > 100 ? "3" : "1.4"}em;
 					`}
-				>{getChar(transform[(i*x)+j], transform[(i*x)+j+1], transform[(i*x)+j+2]) || "☻"}</div>
+				>{getChar(transform[(i*x)+j], transform[(i*x)+j+1], transform[(i*x)+j+2]) || " "}</div>
 		{/each}
 		</div>
 	{/each}
